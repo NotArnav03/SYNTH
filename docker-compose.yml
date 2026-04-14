@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+  router:
+    build: .
+    command: python -m router.main
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - web_research
+      - doc_analysis
+      - code_review
+      - synthesis
+    environment:
+      - WEB_RESEARCH_URL=http://web_research:8001
+      - DOC_ANALYSIS_URL=http://doc_analysis:8002
+      - CODE_REVIEW_URL=http://code_review:8003
+      - SYNTHESIS_URL=http://synthesis:8004
+
+  web_research:
+    build: .
+    command: python -m agents.web_research.main
+    ports:
+      - "8001:8001"
+    env_file:
+      - .env
+    environment:
+      - AGENT_HOST=web_research
+      - ROUTER_URL=http://router:8000
+
+  doc_analysis:
+    build: .
+    command: python -m agents.doc_analysis.main
+    ports:
+      - "8002:8002"
+    env_file:
+      - .env
+    environment:
+      - AGENT_HOST=doc_analysis
+      - ROUTER_URL=http://router:8000
+
+  code_review:
+    build: .
+    command: python -m agents.code_review.main
+    ports:
+      - "8003:8003"
+    env_file:
+      - .env
+    environment:
+      - AGENT_HOST=code_review
+      - ROUTER_URL=http://router:8000
+
+  synthesis:
+    build: .
+    command: python -m agents.synthesis.main
+    ports:
+      - "8004:8004"
+    env_file:
+      - .env
+    environment:
+      - AGENT_HOST=synthesis
+      - ROUTER_URL=http://router:8000
