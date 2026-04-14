@@ -1,6 +1,11 @@
-FROM python:3.12-slim
+FROM node:20-slim
+
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-ENV PYTHONPATH=/app
+
+COPY package.json package-lock.json* ./
+RUN npm install --omit=dev || npm install
+
+COPY tsconfig.json ./
+COPY src ./src
+
+ENV NODE_ENV=production

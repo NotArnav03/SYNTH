@@ -1,9 +1,11 @@
 .env
 .claude/
-__pycache__/
-*.pyc
-.pytest_cache/
 node_modules/
 dist/
 .vite/
-*.egg-info/
+*.js.map
+*.tsbuildinfo
+.pytest_cache/
+coverage/
+.DS_Store
+demo-results/

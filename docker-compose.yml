@@ -3,62 +3,55 @@ version: "3.9"
 services:
   router:
     build: .
-    command: python -m router.main
+    command: npx tsx src/router/index.ts
     ports:
-      - "8000:8000"
+      - "3000:3000"
     env_file:
       - .env
+    environment:
+      - ROUTER_URL=http://router:3000
     depends_on:
       - web_research
       - doc_analysis
       - code_review
       - synthesis
-    environment:
-      - WEB_RESEARCH_URL=http://web_research:8001
-      - DOC_ANALYSIS_URL=http://doc_analysis:8002
-      - CODE_REVIEW_URL=http://code_review:8003
-      - SYNTHESIS_URL=http://synthesis:8004
 
   web_research:
     build: .
-    command: python -m agents.web_research.main
+    command: npx tsx src/agents/web-research.ts
     ports:
-      - "8001:8001"
+      - "3001:3001"
     env_file:
       - .env
     environment:
-      - AGENT_HOST=web_research
-      - ROUTER_URL=http://router:8000
+      - ROUTER_URL=http://router:3000
 
   doc_analysis:
     build: .
-    command: python -m agents.doc_analysis.main
+    command: npx tsx src/agents/doc-analysis.ts
     ports:
-      - "8002:8002"
+      - "3002:3002"
     env_file:
       - .env
     environment:
-      - AGENT_HOST=doc_analysis
-      - ROUTER_URL=http://router:8000
+      - ROUTER_URL=http://router:3000
 
   code_review:
     build: .
-    command: python -m agents.code_review.main
+    command: npx tsx src/agents/code-review.ts
     ports:
-      - "8003:8003"
+      - "3003:3003"
     env_file:
       - .env
     environment:
-      - AGENT_HOST=code_review
-      - ROUTER_URL=http://router:8000
+      - ROUTER_URL=http://router:3000
 
   synthesis:
     build: .
-    command: python -m agents.synthesis.main
+    command: npx tsx src/agents/synthesis.ts
     ports:
-      - "8004:8004"
+      - "3004:3004"
     env_file:
       - .env
     environment:
-      - AGENT_HOST=synthesis
-      - ROUTER_URL=http://router:8000
+      - ROUTER_URL=http://router:3000
