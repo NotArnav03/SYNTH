@@ -1,0 +1,78 @@
+:root {
+  --bg: #0b0d12;
+  --panel: #141820;
+  --panel-edge: #242a35;
+  --fg: #e6e8ee;
+  --muted: #7b8292;
+  --accent: #90be6d;
+  --warn: #f3722c;
+  --err: #f94144;
+}
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; height: 100%; background: var(--bg); color: var(--fg); }
+body { font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif; }
+.mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+.muted { color: var(--muted); }
+.error { color: var(--err); margin-top: 8px; }
+
+.app { max-width: 1280px; margin: 0 auto; padding: 24px; }
+
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.header h1 { margin: 0; font-size: 32px; letter-spacing: 0.5px; }
+.subtitle { color: var(--muted); margin-top: 4px; font-size: 13px; }
+.footer { margin-top: 32px; color: var(--muted); font-size: 12px; text-align: center; }
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-edge);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.panel h2 { margin: 0 0 12px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+/* TransactionCounter */
+.tx-counter { text-align: right; }
+.tx-counter__label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; }
+.tx-counter__value { font-size: 64px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+.tx-counter__target { color: var(--muted); font-size: 12px; }
+.tx-counter--hit .tx-counter__value { color: var(--accent); text-shadow: 0 0 24px rgba(144, 190, 109, 0.4); }
+
+/* Costs */
+.costs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.cost__label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; }
+.cost__value { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* Agents table */
+.agents { width: 100%; border-collapse: collapse; font-size: 13px; }
+.agents th, .agents td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--panel-edge); }
+.agents th { color: var(--muted); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+
+/* QueryInput */
+textarea { width: 100%; background: #0b0d12; border: 1px solid var(--panel-edge); color: var(--fg); border-radius: 6px; padding: 10px; font-family: inherit; resize: vertical; }
+button { margin-top: 8px; background: var(--accent); color: #0b0d12; border: 0; border-radius: 6px; padding: 8px 16px; font-weight: 600; cursor: pointer; }
+button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Flow */
+.flow { display: flex; flex-wrap: wrap; gap: 8px; }
+.flow__node { background: #0b0d12; border: 1px solid; border-radius: 6px; padding: 8px 10px; min-width: 160px; }
+.flow__node--completed { opacity: 0.8; }
+.flow__node--failed { border-color: var(--err) !important; }
+.flow__head { display: flex; justify-content: space-between; font-size: 12px; }
+.flow__agent { font-weight: 600; }
+.flow__status { color: var(--muted); text-transform: lowercase; }
+.flow__cap { color: var(--muted); font-size: 11px; }
+.flow__price { font-size: 12px; margin-top: 4px; }
+.flow__tx { margin-top: 4px; color: var(--accent); }
+
+/* Payments */
+.payments { list-style: none; padding: 0; margin: 0; font-size: 12px; }
+.payments li { display: grid; grid-template-columns: 1.6fr 0.7fr 0.8fr 1.4fr; gap: 8px; padding: 4px 0; border-bottom: 1px solid var(--panel-edge); }
+.payments .tx { color: var(--accent); }
+.payments .amount { text-align: right; }
+
+/* Result */
+.result__body { background: #0b0d12; padding: 12px; border-radius: 6px; white-space: pre-wrap; margin-top: 8px; max-height: 320px; overflow: auto; }
